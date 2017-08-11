@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0 auto;
+        display: table;
+        font-family: "Helvetica Neue", sans-serif;
+      }
+      .regression {
+        stroke-width: 5px;
+        stroke: red;
+        stroke-solid: 10,5;
+      }
+      .equation {
+        font-size: 12px;
+        margin-top: 10px;
+        text-align: center;
+      }
+      .point {
+        stroke: LightSteelBlue;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="John Doe">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  
+  <body>
+
+    <pre id="json"></pre>
+
+    <script src="../bootstrap/d3.v4.min.js"></script>
+    <script>
+    var margin = {top: 5, right: 5, bottom: 20, left: 20},
+      width = 450 - margin.left - margin.right,
+      height = 450 - margin.top - margin.bottom;
+
+    var svg = d3.select(".chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scaleLinear()
+        .range([0,width]);
+
+    var y = d3.scaleLinear()
+        .range([height,0]);
+
+    var xAxis = d3.axisBottom()
+        .scale(x);
+
+    var yAxis = d3.axisLeft()
+        .scale(y);
+    d3.json("../data/tensor.json", function(error, data){
+      document.getElementById("json").innerHTML = JSON.stringify(data, undefined, 2);
+    });
+    </script>
+
+  </body>
+</html>
