@@ -14,4 +14,5 @@ mkdir training_set
 python clean/training_set.py
 
 # tensorflow
-python predict/tensor_d3.py
+cd predict
+python tensor_d3.py
