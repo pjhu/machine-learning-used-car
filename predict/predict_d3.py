@@ -62,7 +62,7 @@ class predict:
         # diff predict price with real price
         self.diff = np.divide(np.subtract(predict_price,self.predict_data['price'].values), self.predict_data['price'].values)
 
-    # error percentage for cumsum of cars   
+    # error percentage for cumsum of cars
     def draw_error_percentage_cumsum(self):
         labels = np.array(['1%','5%','10%','20%','30%','40%','50%','1','1+'])
         scope = np.array([0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 1,100])
@@ -73,19 +73,21 @@ class predict:
         print('draw_error_percentage_cumsum:', percent)
 
         x = labels
-        # y = np.array([percent['1%'], percent['5%'], percent['10%'], percent['20%'], percent['30%'], percent['40%'], percent['50%'], percent['1'], percent['1+']]).cumsum()
         y = np.array([percent['1%'], percent['5%'], percent['10%'], percent['20%'], percent['30%'], percent['40%'], percent['50%'], percent['1'], percent['1+']]).cumsum()
-        with open("diff.json", mode='w+') as out_handler:
-            out_handler.write(json.dumps(dict(zip(x,y.tolist()))))
+        # with open("diff.json", mode='w+') as out_handler:
+        #     out_handler.write(json.dumps(dict(zip(x,y.tolist()))))
+        pd.DataFrame({'percentage':x, 'cumsum':y}).to_csv('../data/diff.csv', columns=['percentage', 'cumsum'], index=False)
 
-    # car used date
-    def draw_used_date_sell(self):
+    # draw_which_year_sell_car
+    def draw_which_year_sell_car(self):
         labels = np.arange(1,11)
         cut = pd.cut(self.predict_data['use_date'], np.arange(11), right=False, labels=labels)
         inflection = cut.value_counts()
-        print('draw_used_date_sell:', inflection)
-        with open("sell.csv", mode='w+') as out_handler:
-            out_handler.write(dict(zip(labels,inflection.tolist())))
+        
+        x = labels
+        y = np.divide(inflection.sort_index().cumsum(),self.row_count)
+        # print('draw_which_year_sell_car:{}{}'.format(x,y))
+        pd.DataFrame({'years':x, 'cumsum':y}).to_csv('../data/which_year_sell_car.csv', columns=['years', 'cumsum'], index=False)
 
 if __name__ == "__main__":
     pre = predict()
@@ -97,4 +99,4 @@ if __name__ == "__main__":
     pre.read_data_from_csv(file_name)
     pre.predict_price_diff()
     pre.draw_error_percentage_cumsum()
-    pre.draw_used_date_sell()
+    pre.draw_which_year_sell_car()

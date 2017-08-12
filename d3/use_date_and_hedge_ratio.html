@@ -25,6 +25,7 @@
     <meta name="keywords" content="HTML,CSS,XML,JavaScript">
     <meta name="author" content="John Doe">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../js/d3.v4.min.js"></script>
   </head>
   
   <body>
@@ -34,11 +35,10 @@
     <div class="equation"></div>
     <div class="equation"></div>
 
-    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
     var margin = {top: 5, right: 5, bottom: 20, left: 20},
-      width = 450 - margin.left - margin.right,
-      height = 450 - margin.top - margin.bottom;
+      width = 1000 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
     var svg = d3.select(".chart").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -46,17 +46,11 @@
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var x = d3.scaleLinear()
-        .range([0,width]);
-
-    var y = d3.scaleLinear()
-        .range([height,0]);
-
-    var xAxis = d3.axisBottom()
-        .scale(x);
-
-    var yAxis = d3.axisLeft()
-        .scale(y);
+    var x = d3.scaleLinear().range([0,width]);
+    var y = d3.scaleLinear().range([height,0]);
+    var xAxis = d3.axisBottom().scale(x);
+    var yAxis = d3.axisLeft().scale(y);
+    
     d3.csv("../data/use_date_and_hedge_ratio.csv", types, function(error, data){
       y.domain(d3.extent(data, function(d){ return d.y}));
       x.domain(d3.extent(data, function(d){ return d.x}));

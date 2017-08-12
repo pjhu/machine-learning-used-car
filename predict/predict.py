@@ -142,7 +142,7 @@ class predict:
         plt.show()
 
     # car used date
-    def draw_used_date_sell(self):
+    def draw_which_year_sell_car(self):
         labels = np.arange(1,11)
         cut = pd.cut(self.predict_data['use_date'], np.arange(11), right=False, labels=labels)
         inflection = cut.value_counts()
@@ -184,4 +184,4 @@ if __name__ == "__main__":
     pre.read_data_from_csv(file_name)
     pre.predict_price_diff()
     pre.draw_error_percentage_cumsum()
-    pre.draw_used_date_sell()
+    pre.draw_which_year_sell_car()

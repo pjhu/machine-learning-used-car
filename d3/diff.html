@@ -1,0 +1,96 @@
+<html>
+<head>
+   <style>
+   .axis {
+     font: 10px sans-serif;
+   }
+
+   .axis path,
+   .axis line {
+     fill: none;
+     stroke: #000;
+     shape-rendering: crispEdges;
+   }
+
+   </style>
+   <meta charset="UTF-8">
+   <meta name="description" content="Free Web tutorials">
+   <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+   <meta name="author" content="John Doe">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="../js/d3.v4.min.js"></script>
+</head>
+
+<body>
+  
+<div class="diff"></div>
+<div class="describe"></div>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 70, left: 40},
+    width = 1000 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
+
+var y = d3.scaleLinear().range([height, 0]);
+
+var xAxis = d3.axisBottom().scale(x);
+var yAxis = d3.axisLeft().scale(y);
+
+var svg = d3.select(".diff").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+          "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("../data/diff.csv", function(error, data) {
+
+    data.forEach(function(d) {
+        d.percentage = d.percentage;
+        d.cumsum = +d.cumsum;
+    });
+ 
+  x.domain(data.map(function(d) { return d.percentage; }));
+  y.domain([0, d3.max(data, function(d) { return d.cumsum; })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .selectAll("text")
+      .style("text-anchor", "middle")
+      .attr("dx", ".40em")
+      .attr("dy", ".80em");
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "middle")
+      .text("Value ($)");
+
+  svg.selectAll("bar")
+      .data(data)
+    .enter().append("rect")
+      .style("fill", "steelblue")
+      .attr("x", function(d) { return x(d.percentage); })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(d.cumsum); })
+      .attr("height", function(d) { return height - y(d.cumsum); })
+    .append("text")
+      .attr("class", "label")
+      .attr("y", 100)
+      .attr("dy", ".35em") //vertical align middle
+      .text(function(d){
+          return d.percentage;});
+  });
+  
+  document.getElementsByClassName("describe")[0].innerHTML = "x 是误差百分比， y 是误差范围内二手车数量";
+</script>
+</body>
+</html>

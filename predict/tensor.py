@@ -170,4 +170,4 @@ if __name__ == "__main__":
     pre.read_data_from_csv(file_name)
     pre.predict_price_diff()
     pre.draw_error_percentage_cumsum()
-    pre.draw_used_date_sell()
+    pre.draw_which_year_sell_car()
