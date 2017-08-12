@@ -97,12 +97,12 @@ def process_file_differently(source, target):
 
 
 if __name__ == "__main__":
-    source_1 = "/path/to/source/20170619.json"
-    target_1 = "/path/to/training_set/20170619_target.csv"
-    source_2 = "/path/to/source/20170620.json"
-    target_2 = "/path/to/training_set/20170620_target.csv"
+    # source_1 = "/path/to/source/20170619.json"
+    # target_1 = "/path/to/training_set/20170619_target.csv"
+    # source_2 = "/path/to/source/20170620.json"
+    # target_2 = "/path/to/training_set/20170620_target.csv"
     source_3 = "/path/to/source/20170621.json"
-    target_3 = "/path/to/training_set/20170621_target.csv"
+    target_3 = "/path/to/training_set/20170621_predict.csv"
     #process_file_differently(source_1, target_1)
     #process_file_differently(source_2, target_2)
     process_file_differently(source_3, target_3)

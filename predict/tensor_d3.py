@@ -62,7 +62,7 @@ class tensor:
         # caculate correlation
         # print(self.source_data.corr("pearson"))
         corr = self.source_data.corr("pearson")
-        corr.to_csv('correlation.csv')
+        corr.to_csv('../data/correlation.csv')
 
     # 1d relation(use_date, hedge_ratio)
     def use_date_and_hedge_ratio(self):
