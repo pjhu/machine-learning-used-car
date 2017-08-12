@@ -180,7 +180,7 @@ if __name__ == "__main__":
     pre.set_is_all(is_all)
     pre.set_weight()
 
-    file_name = '../predict_data/20170621_predict.csv'
+    file_name = '../predict_data/predict.csv'
     pre.read_data_from_csv(file_name)
     pre.predict_price_diff()
     pre.draw_error_percentage_cumsum()
