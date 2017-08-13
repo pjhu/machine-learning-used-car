@@ -7,6 +7,7 @@ Created on Sun Aug  6 19:44:30 2017
 """
 
 import csv
+import datetime
 import json
 import os
 import pandas as pd
@@ -144,6 +145,7 @@ class tensor:
         # tensor.to_csv('../data/tensor.csv', index=False)
 
 if __name__ == "__main__":
+    t1 = datetime.datetime.now()
     ts = tensor()
     is_all = True
     data = ts.read_data_from_csv()
@@ -165,3 +167,5 @@ if __name__ == "__main__":
     pre.predict_price_diff()
     pre.draw_error_percentage_cumsum()
     pre.draw_which_year_sell_car()
+    t2 = datetime.datetime.now()
+    print("use time: {}".format(delta_time.seconds))
