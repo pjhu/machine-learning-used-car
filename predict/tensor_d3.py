@@ -168,4 +168,5 @@ if __name__ == "__main__":
     pre.draw_error_percentage_cumsum()
     pre.draw_which_year_sell_car()
     t2 = datetime.datetime.now()
+    delta_time = t2 - t1
     print("use time: {}".format(delta_time.seconds))
