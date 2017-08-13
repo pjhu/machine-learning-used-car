@@ -117,7 +117,7 @@ class tensor:
             test_xs = tensor.iloc[:,:-1]
             test_ys = tensor.iloc[:,-1:]
 
-            for step in range(10000):
+            for step in range(30000):
                 batch_ = tensor.sample(n=1000)
                 batch_xs = batch_.iloc[:,:-1]
                 batch_ys = batch_.iloc[:,-1:]
